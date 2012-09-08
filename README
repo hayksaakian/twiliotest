@@ -12,9 +12,8 @@ require 'twilio-ruby'
 @client = Twilio::REST::Client.new(@account_sid, @auth_token)
 
 
-@account = @client.account
-#:url should point to a TwiML page
-@call = @account.calls.create({:from => '+12067455752', :to => '+12068837226', :url => 'http://localhost:3000/calls.xml'})
+@account = @client.account #:url should point to a TwiML page
+@call = @account.calls.create({:from => '+12067455752', :to => '+12068837226', :action => :index, :url => 'http://hayktwiliotest.herokuapp.com/calls.xml'})
 puts @call
 -----
 require 'twilio-ruby'
