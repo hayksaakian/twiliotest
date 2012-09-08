@@ -1,0 +1,33 @@
+curl -X POST 'https://api.twilio.com/2010-04-01/Accounts/AC9e526412b6ca064bf8190e7102acebff/Calls.json' \
+-d 'From=%2B12067455752' \
+-d 'To=2068837226' \
+-u AC9e526412b6ca064bf8190e7102acebff:a5176e074bbe1868f29b69422ad89762
+
+require 'twilio-ruby'
+
+@account_sid = 'AC9e526412b6ca064bf8190e7102acebff'
+@auth_token = 'a5176e074bbe1868f29b69422ad89762'
+
+# set up a client to talk to the Twilio REST API
+@client = Twilio::REST::Client.new(@account_sid, @auth_token)
+
+
+@account = @client.account
+#:url should point to a TwiML page
+@call = @account.calls.create({:from => '+12067455752', :to => '+12068837226', :url => 'http://localhost:3000/calls.xml'})
+puts @call
+-----
+require 'twilio-ruby'
+
+@account_sid = 'AC9e526412b6ca064bf8190e7102acebff'
+@auth_token = 'a5176e074bbe1868f29b69422ad89762'
+
+# set up a client to talk to the Twilio REST API
+@client = Twilio::REST::Client.new(@account_sid, @auth_token)
+
+
+@account = @client.account
+@message = @account.sms.messages.create({:from => '+12067455752', :to => '+12068837226', :body => 'test message via twilio api'})
+puts @message
+-----
+http://twimlets.com/echo?Twiml=%3CResponse%3E%3CSay%3EHello+Hayk%2C+thanks+for+the+call%21%3C%2FSay%3E%3C%2FResponse%3E
